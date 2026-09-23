@@ -1,0 +1,315 @@
+* {
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+/* HOME */
+body {
+    font-family:system-ui,sans-serif;
+    background:linear-gradient(120deg,#c7d2fe,#fff 50%,#f9a8d4);
+    min-height:100vh;
+    color:#1e293b;
+}
+
+header nav {
+    background:#fff;
+    border-radius:999px;
+    display:flex;gap:20px;
+    justify-content:center;
+    padding:12px 24px;
+    max-width:900px;
+    margin:20px auto;
+    box-shadow:0 4px 16px rgba(0,0,0,.08);
+}
+
+header nav a {
+    color:#475569;
+    text-decoration:none;
+    font-size:.9rem;
+}
+
+main section {
+    display:flex;
+    gap:180px;
+    align-items:center;
+    max-width:900px;
+    margin:40px auto;
+    padding:0 20px;
+}
+
+h4 {
+    color:#4338ca;
+    font-size:.9rem;
+    margin-bottom:8px;
+}
+
+h1 {
+    font-size:2.6rem;
+    line-height:1.15;
+    color:#0f172a;
+}
+
+h1 span {
+    color:#4338ca;
+}
+
+h3 {
+    color:#64748b;
+    font-weight:500;
+    font-size:1rem;
+    margin:12px 0 20px;
+}
+
+main section a[href*="project"]{
+    background:#4338ca;
+    color:#fff;
+    padding:10px 24px;
+    border-radius:999px;
+    text-decoration:none;
+}
+
+main section a[href*="contact"]{
+    border:1px solid #4338ca;color:#1e293b;
+    padding:10px 24px;
+    border-radius:999px;
+    text-decoration:none;
+    margin-left:10px;
+}
+
+img {
+    width:250px;
+    border-radius:20px;
+    transform:rotate(-3deg);
+    box-shadow:0 12px 32px rgba(0,0,0,.2);
+    outline:3px solid #4338ca; outline-offset:6px;
+}
+
+main section>div {
+    padding-left:10px;
+}
+
+/* ABOUT */
+.about section {
+    gap:60px;
+    align-items:flex-start;
+}
+
+.about h2 {
+    font-size:2rem;
+    color:#0f172a;
+    margin-bottom:16px;
+}
+
+.about p {
+    color:#475569;
+}
+
+.about img {
+    transform:none;
+    outline:2px solid #e11d48;
+    outline-offset:8px;
+}
+
+.stats {
+    display:flex;
+    gap:40px;
+    margin-top:24px;
+}
+
+.stats b {
+    display:block;
+    font-size:1.8rem;
+    color:#4338ca;
+}
+
+.stats span {
+    font-size:.85rem;
+    color:#64748b;
+}
+
+/* EXPERIENCE */
+.exp {
+    max-width:900px;
+    margin:40px auto;
+    padding:0 20px
+}
+.exp h2 {
+    font-size:2rem;
+    color:#0f172a;
+    margin-bottom:8px
+}
+
+.timeline {
+    border-left:2px solid #c7d2fe;
+    margin:24px 0 0 8px;
+    padding-left:28px
+}
+
+.item {
+    position:relative;
+    margin-bottom:20px
+}
+
+.item::before {
+    content:"";
+    position:absolute;
+    left:-36px;
+    top:22px;
+    width:12px;
+    height:12px;
+    border-radius:50%;
+    background:#e11d48
+}
+
+/* PROJECT */
+.kartu {
+    background:#fff;
+    border-radius:16px;
+    padding:20px;
+    box-shadow:0 4px 16px rgba(0,0,0,.08)
+}
+
+.kartu b {
+    color:#0f172a
+}
+
+.periode {
+    color:#4338ca;
+    font-size:.8rem;
+    font-weight:700
+}
+
+.org {
+    color:#475569;
+    font-size:.85rem;
+    font-weight:600
+}
+
+.kartu ul {
+    margin-top:8px;
+    padding-left:18px;
+    color:#475569;
+    font-size:.9rem
+}
+
+.proj {
+    max-width:900px;
+    margin:40px auto;
+    padding:0 20px
+}
+
+.proj h2 {
+    font-size:2rem;
+    color:#0f172a;
+    margin-bottom:16px
+}
+
+.grid {
+    display:grid;
+    grid-template-columns:
+    repeat(3,1fr);
+    gap:16px
+}
+
+.thumb {
+    height:120px;
+    border-radius:12px;
+    background:linear-gradient(135deg,#c7d2fe,#f9a8d4);
+    margin-bottom:12px;
+    overflow:hidden
+}
+
+.thumb img {
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    transform:none;
+    box-shadow:none
+}
+
+.kategori {
+    color:#e11d48;
+    font-size:.72rem;
+    letter-spacing:1px;
+    font-weight:700
+}
+
+.proj .kartu p {
+    color:#475569;
+    font-size:.9rem;
+    margin-top:6px
+}
+
+.tag {
+    display:inline-block;
+    background:#eef2ff;
+    color:#4338ca;
+    border-radius:999px;
+    padding:2px 12px;
+    font-size:.75rem;
+    margin:6px 6px 0 0
+}
+
+/* CONTACT */
+.kontak {
+    max-width:900px;
+    margin:40px auto;
+    padding:0 20px
+}
+
+.kontak h2 {
+    font-size:2rem;
+    color:#0f172a;
+    margin-bottom:8px
+}
+
+.kontak>p {
+    color:#475569;
+    margin-bottom:20px
+}
+
+.kontak-item {
+    display:flex;
+    gap:14px;
+    align-items:center;
+    background:#fff;
+    border-radius:14px;
+    padding:14px 18px;
+    margin-bottom:12px;
+    box-shadow:0 4px 16px rgba(0,0,0,.06)
+}
+
+.ikon {
+    width:42px;
+    height:42px;
+    flex:0 0 42px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:#ffffff;
+    color:#fff;
+    font-weight:700;
+    font-size:.85rem;
+    overflow:hidden
+}
+
+.ikon img {
+    width:24px;
+    height:24px;
+    object-fit:contain;
+    transform:none;
+    box-shadow:none
+}
+
+.muted {
+    color:#94a3b8;
+    font-size:.85rem
+}
+
+@media(max-width:700px){
+    main section{flex-direction:column;gap:32px}
+    img{width:100%;max-width:320px}
+    header nav{flex-wrap:wrap;border-radius:24px}
+}
