@@ -690,3 +690,281 @@ a {
         display: none;
     }
 }
+
+
+/* ========================================================
+   INTERACTIVE & TRANSITION ENHANCEMENTS (JS-POWERED)
+   ======================================================== */
+
+/* Native View Transitions API (Modern Chromium & Safari 18+) */
+::view-transition-old(root),
+::view-transition-new(root) {
+    animation-duration: 0.2s;
+    animation-timing-function: cubic-bezier(0.2, 0, 0, 1);
+}
+
+::view-transition-old(root) {
+    animation-name: pageFadeOut;
+}
+
+::view-transition-new(root) {
+    animation-name: pageFadeIn;
+}
+
+@keyframes pageFadeOut {
+    from { opacity: 1; transform: translateY(0); }
+    to { opacity: 0; transform: translateY(4px); }
+}
+
+@keyframes pageFadeIn {
+    from { opacity: 0; transform: translateY(-4px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Fallback Transitions for browsers without View Transitions */
+.page-transitioning-out {
+    opacity: 0 !important;
+    transform: translateY(6px) !important;
+    transition: opacity 0.16s cubic-bezier(0.4, 0, 0.2, 1), transform 0.16s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.page-transitioning-in {
+    opacity: 0 !important;
+    transform: translateY(-6px) !important;
+}
+
+.canvas-container {
+    transition: opacity 0.18s cubic-bezier(0.2, 0, 0, 1), transform 0.18s cubic-bezier(0.2, 0, 0, 1);
+    will-change: opacity, transform;
+}
+
+/* Card Hover Micro-Interactions */
+.project-card {
+    transition: transform 0.22s cubic-bezier(0.2, 0, 0, 1), box-shadow 0.22s cubic-bezier(0.2, 0, 0, 1), opacity 0.2s ease;
+    will-change: transform, opacity;
+    cursor: pointer;
+}
+.project-card:hover {
+    transform: translateY(-4px) !important;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12) !important;
+}
+
+/* Filter Animations (Class-based, no inline style conflict) */
+.project-card.is-filtered-out {
+    opacity: 0;
+    pointer-events: none;
+    display: none !important;
+}
+
+.project-card.is-filtering-out {
+    opacity: 0;
+    transform: scale(0.96);
+    pointer-events: none;
+}
+
+.project-card.is-filtering-in {
+    animation: cardReveal 0.24s cubic-bezier(0.2, 0, 0, 1) forwards;
+}
+
+@keyframes cardReveal {
+    from {
+        opacity: 0;
+        transform: scale(0.96) translateY(4px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+.resume-card {
+    transition: transform 0.2s ease, border-color 0.2s ease;
+}
+.resume-card:hover {
+    transform: translateY(-2px);
+    border-color: #888;
+}
+
+.contact-item-box {
+    transition: transform 0.2s ease, border-color 0.2s ease, background 0.15s ease;
+}
+.contact-item-box:hover {
+    transform: translateY(-2px);
+    border-color: #666;
+    background: #DDDDDD;
+}
+
+/* Project Detail Modal */
+#project-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+#project-modal.is-open {
+    display: flex;
+}
+.modal-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(4px);
+    cursor: pointer;
+}
+.modal-content {
+    position: relative;
+    background: #FFFFFF;
+    width: 100%;
+    max-width: 580px;
+    max-height: 90vh;
+    overflow-y: auto;
+    border: 2px solid #111111;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    animation: modalPop 0.22s cubic-bezier(0.2, 0, 0, 1);
+}
+@keyframes modalPop {
+    from {
+        opacity: 0;
+        transform: scale(0.95) translateY(12px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 20px;
+    border-bottom: 1px solid #E5E5E5;
+    background: #FAFAFA;
+}
+.modal-category {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: #c9880e;
+    text-transform: uppercase;
+}
+.modal-close-btn {
+    background: transparent;
+    border: none;
+    font-size: 18px;
+    font-weight: 800;
+    cursor: pointer;
+    color: #111;
+    padding: 4px 8px;
+    line-height: 1;
+}
+.modal-close-btn:hover {
+    color: #e5a720;
+}
+.modal-image-wrap {
+    width: 100%;
+    height: 220px;
+    background: #111;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.modal-image-wrap img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+.modal-body {
+    padding: 20px;
+}
+.modal-title {
+    font-family: var(--font-display);
+    font-size: 18px;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: var(--text-primary);
+    margin-bottom: 10px;
+    line-height: 1.25;
+}
+.modal-desc {
+    font-size: 12px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 18px;
+}
+.modal-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 22px;
+}
+.modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    border-top: 1px solid #EEE;
+    padding-top: 14px;
+}
+.modal-link-btn {
+    display: inline-block;
+    background: var(--bg-accent-amber);
+    color: var(--text-primary);
+    font-family: var(--font-body);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 8px 18px;
+    text-decoration: none;
+    border-radius: 9999px !important;
+    transition: background 0.15s ease;
+}
+.modal-link-btn:hover {
+    background: #e5a720;
+}
+
+/* Floating Toast Notification */
+.app-toast {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    background: #111111;
+    color: #FFFFFF;
+    padding: 10px 18px;
+    font-size: 11px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    z-index: 1100;
+    border-left: 3px solid var(--bg-accent-amber);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+    transform: translateY(80px);
+    opacity: 0;
+    transition: transform 0.24s cubic-bezier(0.2, 0, 0, 1), opacity 0.24s ease;
+    pointer-events: none;
+}
+.app-toast.is-visible {
+    transform: translateY(0);
+    opacity: 1;
+}
+.toast-icon {
+    color: var(--bg-accent-amber);
+    font-weight: 900;
+    font-size: 13px;
+}
+
+/* Quick Dock active state */
+.quick-dock a {
+    transition: transform 0.18s cubic-bezier(0.2, 0, 0, 1), background 0.18s ease, color 0.18s ease;
+}
+.quick-dock a.active {
+    background: #111111;
+    color: var(--bg-accent-amber);
+    border-radius: 50% !important;
+}

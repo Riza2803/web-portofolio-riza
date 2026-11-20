@@ -50,21 +50,3 @@
     @endforeach
 </div>
 @endsection
-
-@push('scripts')
-<script>
-    function filterProjects(cat, btn) {
-        document.querySelectorAll('.portfolio-filters .filter-btn').forEach(b => b.classList.remove('active'));
-        if (btn) btn.classList.add('active');
-
-        const cards = document.querySelectorAll('.portfolio-grid .project-card');
-        cards.forEach(card => {
-            if (cat === 'all' || card.getAttribute('data-category') === cat) {
-                card.style.display = 'flex';
-            } else {
-                card.style.display = 'none';
-            }
-        });
-    }
-</script>
-@endpush
