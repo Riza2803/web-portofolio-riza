@@ -7,28 +7,36 @@ $profile = [
     'nama' => 'Riza Aditya Pirmansyah',
     'pendek' => 'Riza Aditya',
     'badge' => 'Mahasiswa Sistem Informasi',
-    'roles' => 'Full Stack Learner, UI/UX Learner, Basic IT Support Videografi',
+    'roles' => 'Web Developer & System Analyst',
     'foto' => 'img/rz2.jpg',
-    'tentang' => 'Saya Riza Aditya Pirmansyah, mahasiswa semester 3 D3 Sistem Informasi di Politeknik Negeri Subang.
-     Saya sedang mendalami pengembangan web — dari front-end sampai back-end — dengan Laravel sebagai senjata utama, 
-     dan mempelajari UI/UX. Di luar ngoding, saya lumayan aktif di videografi dan editing video, termasuk dokumentasi acara kampus. 
-     Saya terbiasa kerja tim — pernah jadi project manager tim 5 orang.',
-    'foto_about' => 'img/rz1.JPG',
+    'tentang' => 'Mahasiswa D3 Sistem Informasi di Politeknik Negeri Subang dengan fokus pada analisis kebutuhan sistem dan pengembangan aplikasi web. Berpengalaman memimpin tim kerja sebagai Project Manager dan aktif dalam dokumentasi multimedia organisasi.',
+    'foto_about' => 'img/rz1.jpg',
     'stats' => [
         ['angka' => '3', 'label' => 'Pengalaman'],
-        ['angka' => '2', 'label' => 'Proyek Selesai'],
+        ['angka' => '5', 'label' => 'Proyek Selesai'],
         ['angka' => '5+', 'label' => 'Skill'],
+        ['angka' => '1', 'label' => 'Tim Dipimpin (PM)'],
     ],
     'pengalaman' => [
         ['periode' => '2026', 'jabatan' => 'PROJECT MANAGER PROJECT 1', 'org' => 'Tim 5 Orang', 'detail' => ['Memimpin tim 5 orang', 'Menyusun rencana dan pembagian tugas']],
         ['periode' => '2026', 'jabatan' => 'ANGGOTA DIVISI PUBLIKASI, DESAIN DAN DOKUMENTASI', 'org' => 'PKKMB Jurusan & Mabim', 'detail' => ['Desain publikasi acara', 'Dokumentasi foto dan video']],
         ['periode' => '2026', 'jabatan' => 'KETUA DIVISI KOORDINATOR LAPANGAN', 'org' => 'Diesnatalis Himatikom', 'detail' => ['Koordinasi lapangan acara', 'Mengatur alur kegiatan']],
     ],
+    'pendidikan' => [
+        [
+            'periode' => '2025 - Sekarang',
+            'jurusan' => 'D3 Sistem Informasi',
+            'kampus' => 'Politeknik Negeri Subang',
+            'fokus' => 'Fokus pada analisis sistem, pemodelan masalah proses bisnis, dan pengembangan aplikasi web.',
+        ],
+    ],
     // Daftar proyek
     'proyek' => [
+        ['gambar' => 'img/myschedule.png', 'kategori' => 'MOBILE APP', 'judul' => 'MySchedule — Offline Agenda & Widget', 'deskripsi' => 'Aplikasi manajemen agenda luring dengan widget Android interaktif, alarm pengingat, dan kategori kustom.', 'tags' => ['React Native', 'TypeScript', 'SQLite', 'Expo'], 'url' => 'https://github.com/Riza2803/MySchedule-app', 'label' => 'GitHub ↗'],
+        ['gambar' => 'img/mywallet.png', 'kategori' => 'MOBILE APP', 'judul' => 'MyWallet — Expense Tracker', 'deskripsi' => 'Aplikasi pelacak keuangan pribadi offline-first dengan rekap multi-periode, pengingat tagihan, dan multi-akun.', 'tags' => ['React Native', 'TypeScript', 'SQLite', 'Expo'], 'url' => 'https://github.com/Riza2803/MyWallet-app', 'label' => 'GitHub ↗'],
         ['gambar' => 'img/vb.png', 'kategori' => 'ACADEMIC PROJECT', 'judul' => 'Sistem Presensi Desa Cikadu', 'deskripsi' => 'Sistem presensi berbasis Visual Basic untuk administrasi desa.', 'tags' => ['VB', 'Desktop'], 'url' => 'https://youtu.be/FnfyQx19PkU', 'label' => 'Lihat ↗'],
+        ['gambar' => 'img/figma.png', 'kategori' => 'SYSTEM DESIGN', 'judul' => 'Analisis & Prototipe Sistem Pemesanan Ayam Geprek Si Akang', 'deskripsi' => 'Perancangan alur proses bisnis dan prototipe interaktif pemesanan makanan 5 modul: Beranda, Menu, Pesan, Lacak, dan Riwayat.', 'tags' => ['Sistem Analis', 'Figma'], 'url' => 'https://www.figma.com/design/itR9ui0W2mWNyOwi54bALa/SiAkang?node-id=0-1&t=7mHv9ghKIPntH8st-1', 'label' => 'Lihat di Figma ↗'],
         ['gambar' => 'img/video.png', 'kategori' => 'VIDEOGRAFI', 'judul' => 'Dokumentasi Acara', 'deskripsi' => 'Videografi dan editing dokumentasi acara jurusan.', 'tags' => ['Video', 'Editing'], 'url' => 'https://drive.google.com/drive/folders/154JxdktHQcBG5Cu5H4olhL7_pDGzd8xx', 'label' => 'Lihat ↗'],
-        ['gambar' => 'img/figma.png', 'kategori' => 'UI DESIGN', 'judul' => 'Ayam Geprek Si Akang', 'deskripsi' => 'Desain UI web pemesanan makanan 5 halaman: Beranda, Menu, Pesan, Lacak, Riwayat.', 'tags' => ['Figma', 'UI Design'], 'url' => 'https://www.figma.com/design/itR9ui0W2mWNyOwi54bALa/SiAkang?node-id=0-1&t=7mHv9ghKIPntH8st-1', 'label' => 'Lihat di Figma ↗'],
     ],
     // Daftar kontak
     'kontak' => [

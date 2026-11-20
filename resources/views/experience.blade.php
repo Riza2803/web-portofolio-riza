@@ -1,38 +1,39 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Experience - {{ $p['pendek'] }}</title>
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-</head>
-<body>
-     <header>
-        <nav><a href="{{ url('/') }}">Home</a> 
-        <a href="{{ url('/about') }}">About</a> 
-        <a href="{{ url('/experience') }}">Experience</a> 
-        <a href="{{ url('/project') }}">Projects</a> 
-        <a href="{{ url('/contact') }}">Contact</a></nav>
-    </header>
-    <main class="exp">
-        <h2>Pengalaman &amp; Kontribusi</h2>
+@extends('layouts.app')
 
-        <div class="timeline">
-            @foreach($p['pengalaman'] as $e)
-            <div class="item">
-                <div class="periode">{{ $e['periode'] }}</div>
-                <div class="kartu">
-                    <b>{{ $e['jabatan'] }}</b>
-                    <div class="org">{{ $e['org'] }}</div>
-                    <ul>
-                        @foreach($e['detail'] as $d)
-                        <li>{{ $d }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            </div>
-            @endforeach
+@section('title', 'Resume — ' . $p['pendek'])
+
+@section('content')
+<div class="section-header-banner">
+    <h2 class="section-title">RESUME</h2>
+</div>
+
+<h3 class="resume-group-title">Pengalaman Organisasi &amp; Proyek</h3>
+<div class="resume-grid-3">
+    @foreach($p['pengalaman'] as $e)
+    <div class="resume-card">
+        <span class="period-badge">{{ $e['periode'] }}</span>
+        <div class="resume-role">{{ $e['jabatan'] }}</div>
+        <div class="resume-org">{{ $e['org'] }}</div>
+        <div class="resume-desc">
+            <ul>
+                @foreach($e['detail'] as $d)
+                <li>{{ $d }}</li>
+                @endforeach
+            </ul>
         </div>
-    </main>
-</body>
-</html>
+    </div>
+    @endforeach
+</div>
+
+<h3 class="resume-group-title">Pendidikan</h3>
+<div class="resume-grid-3">
+    @foreach($p['pendidikan'] as $edu)
+    <div class="resume-card">
+        <span class="period-badge">{{ $edu['periode'] }}</span>
+        <div class="resume-role">{{ $edu['jurusan'] }}</div>
+        <div class="resume-org">{{ $edu['kampus'] }}</div>
+        <p class="resume-desc">{{ $edu['fokus'] }}</p>
+    </div>
+    @endforeach
+</div>
+@endsection

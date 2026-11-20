@@ -1,32 +1,24 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home - {{ $p['pendek'] }}</title>
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-</head>
-<body>
-    <header>
-        <nav><a href="{{ url('/') }}">Home</a> 
-        <a href="{{ url('/about') }}">About</a> 
-        <a href="{{ url('/experience') }}">Experience</a> 
-        <a href="{{ url('/project') }}">Projects</a> 
-        <a href="{{ url('/contact') }}">Contact</a></nav>
-    </header>
-    <main>
-        <section>
-            <div>
-                <h4>{{ $p['badge'] }}</h4>
-                <h1>Halo, saya <br>
-                    <span>{{ $p['pendek'] }}</span></h1>
-                <h3>{{ $p['roles'] }}</h3>
+@extends('layouts.app')
 
-                <a class="btnprto" href="{{ url('/project') }}">View Project</a> <a href="{{ url('/contact') }}">Contact Me</a>
-            </div>
+@section('title', 'Home — ' . $p['pendek'])
 
-            <img src="{{ asset($p['foto']) }}" alt="Foto {{ $p['nama'] }}">
-        </section>
-    </main>
-</body>
-</html>
+@section('content')
+<div class="hero-view-container">
+    <div class="hero-left">
+        <div class="hero-greeting">HI THERE!</div>
+        <h1 class="hero-title">
+            I'M <span class="name-outline">{{ $p['pendek'] }}</span>
+        </h1>
+        <div class="role-strip">{{ $p['roles'] }}</div>
+        <p class="hero-desc">
+            {{ $p['tentang'] }}
+        </p>
+        <div>
+            <a class="btn-capsule" href="{{ url('/about') }}">MORE ABOUT ME ↗</a>
+        </div>
+    </div>
+    <div class="hero-right">
+        <img src="{{ asset($p['foto']) }}" alt="Foto {{ $p['nama'] }}">
+    </div>
+</div>
+@endsection

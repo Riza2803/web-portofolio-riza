@@ -1,0 +1,1133 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mockup Portfolio — Editorial Monochrome & Amber</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-hero-light: #FFFFFF;
+            --bg-canvas-grey: #DCDCDC;
+            --bg-surface-muted: #D2D2D2;
+            --bg-surface-dark: #111111;
+            --bg-accent-amber: #F5B82E;
+            
+            --text-primary: #111111;
+            --text-secondary: #555555;
+            --text-muted: #8A8A8A;
+            --text-on-dark: #FFFFFF;
+            --text-accent: #F5B82E;
+            
+            --border-dashed-dark: 1px dashed #9E9E9E;
+            --border-dashed-light: 1px dashed rgba(255, 255, 255, 0.25);
+            --border-solid-subtle: 1px solid rgba(17, 17, 17, 0.15);
+
+            --font-display: 'Montserrat', sans-serif;
+            --font-body: 'Inter', sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            border-radius: 0;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--bg-canvas-grey);
+            color: var(--text-primary);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        /* Top Demo Preview Switcher Bar */
+        .preview-bar {
+            background: #111;
+            color: #fff;
+            padding: 8px 16px;
+            font-size: 11px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid var(--bg-accent-amber);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .preview-bar .badge {
+            background: var(--bg-accent-amber);
+            color: #111;
+            font-weight: 700;
+            padding: 2px 6px;
+            letter-spacing: 0.05em;
+        }
+        .preview-nav {
+            display: flex;
+            gap: 8px;
+        }
+        .preview-nav button {
+            background: #222;
+            color: #bbb;
+            border: 1px solid #444;
+            padding: 4px 10px;
+            font-size: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            text-transform: uppercase;
+        }
+        .preview-nav button.active, .preview-nav button:hover {
+            background: var(--bg-accent-amber);
+            color: #111;
+            border-color: var(--bg-accent-amber);
+        }
+
+        /* Floating Right Quick-Jump Dock */
+        .quick-dock {
+            position: fixed;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 32px;
+            padding: 14px 0;
+            border-radius: 9999px !important;
+            background: var(--bg-accent-amber);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+            z-index: 900;
+        }
+        .quick-dock a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 20px;
+            height: 20px;
+            color: var(--text-primary);
+            transition: transform 0.15s ease;
+        }
+        .quick-dock a:hover {
+            transform: scale(1.2);
+        }
+        .quick-dock svg {
+            width: 14px;
+            height: 14px;
+            fill: currentColor;
+        }
+
+        /* Container Layout for Inner Views */
+        .app-shell {
+            display: grid;
+            grid-template-columns: 220px 1fr;
+            min-height: calc(100vh - 36px);
+        }
+
+        /* Left Editorial Sidebar */
+        .sidebar {
+            background: var(--bg-accent-amber);
+            display: flex;
+            flex-direction: column;
+            border-right: 1px solid rgba(17, 17, 17, 0.1);
+        }
+        .avatar-box {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            background: #000;
+            overflow: hidden;
+        }
+        .avatar-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(100%) contrast(115%);
+            display: block;
+        }
+        .side-nav {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 30px 16px;
+        }
+        .nav-item {
+            font-family: var(--font-display);
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--text-primary);
+            padding: 10px 14px;
+            cursor: pointer;
+            display: block;
+            text-align: center;
+            transition: color 0.15s ease;
+            position: relative;
+        }
+        .nav-item.active {
+            color: var(--text-on-dark);
+        }
+        .nav-item:hover {
+            color: #000;
+        }
+        .nav-divider {
+            width: 1px;
+            height: 12px;
+            background: rgba(17, 17, 17, 0.35);
+            margin: 2px 0;
+        }
+
+        /* Main Canvas */
+        .main-canvas {
+            background: var(--bg-canvas-grey);
+            padding: 36px 56px 48px 44px;
+            position: relative;
+        }
+
+        /* View Sections Controller */
+        .view-section {
+            display: none;
+        }
+        .view-section.active {
+            display: block;
+            animation: fadeIn 0.2s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(4px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ========================================================
+           MODE 1: HERO VIEW (50/50 ASYMMETRIC SPLIT SCREEN)
+           ======================================================== */
+        .hero-view-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            min-height: calc(100vh - 36px);
+            background: #fff;
+        }
+        .hero-left {
+            background: var(--bg-hero-light);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 0 12%;
+        }
+        .hero-greeting {
+            font-family: var(--font-display);
+            font-size: 22px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+        .hero-title {
+            font-family: var(--font-display);
+            font-size: 48px;
+            font-weight: 900;
+            line-height: 1.05;
+            text-transform: uppercase;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+        }
+        .hero-title .name-outline {
+            color: transparent;
+            -webkit-text-stroke: 1.5px var(--bg-accent-amber);
+            display: block;
+        }
+        .role-strip {
+            display: inline-block;
+            align-self: flex-start;
+            background: var(--bg-accent-amber);
+            color: var(--text-primary);
+            font-family: var(--font-body);
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            padding: 3px 8px;
+            margin-bottom: 20px;
+        }
+        .hero-desc {
+            font-size: 12px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 28px;
+            max-width: 440px;
+        }
+        .btn-capsule {
+            display: inline-block;
+            align-self: flex-start;
+            background: var(--bg-accent-amber);
+            color: var(--text-primary);
+            font-family: var(--font-body);
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            padding: 10px 22px;
+            border-radius: 9999px !important;
+            border: none;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+        .btn-capsule:hover {
+            background: #e5a720;
+        }
+        .hero-right {
+            background: #111;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-right img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(100%) contrast(115%);
+            display: block;
+        }
+
+        /* ========================================================
+           COMMON INNER VIEW COMPONENTS
+           ======================================================== */
+        .section-header-banner {
+            width: 100%;
+            padding: 14px 24px;
+            border: var(--border-dashed-dark);
+            margin-bottom: 24px;
+            text-align: center;
+        }
+        .section-title {
+            font-family: var(--font-display);
+            font-size: 38px;
+            font-weight: 900;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: var(--text-primary);
+            line-height: 1.1;
+        }
+        .lead-statement {
+            font-size: 17px;
+            color: var(--text-primary);
+            margin-bottom: 20px;
+            line-height: 1.4;
+        }
+        .lead-statement .light { font-weight: 300; }
+        .lead-statement .bold { font-weight: 700; }
+
+        /* ========================================================
+           SECTION 1: ABOUT ME
+           ======================================================== */
+        .about-grid-content {
+            display: grid;
+            grid-template-columns: 1.35fr 1fr;
+            gap: 28px;
+            align-items: start;
+        }
+        .stat-matrix-2x2 {
+            background: var(--bg-surface-dark);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 1fr 1fr;
+            position: relative;
+        }
+        .stat-cell {
+            padding: 24px 18px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+        /* Dashed dividers for 2x2 */
+        .stat-cell:nth-child(1) {
+            border-right: var(--border-dashed-light);
+            border-bottom: var(--border-dashed-light);
+        }
+        .stat-cell:nth-child(2) {
+            border-bottom: var(--border-dashed-light);
+        }
+        .stat-cell:nth-child(3) {
+            border-right: var(--border-dashed-light);
+        }
+        .stat-number {
+            font-family: var(--font-display);
+            font-size: 34px;
+            font-weight: 900;
+            color: var(--text-accent);
+            line-height: 1;
+            margin-bottom: 4px;
+            font-variant-numeric: tabular-nums;
+        }
+        .stat-label {
+            font-size: 9px;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--text-on-dark);
+        }
+
+        .services-col h4 {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+        .service-row {
+            display: flex;
+            gap: 14px;
+            align-items: flex-start;
+            margin-bottom: 18px;
+        }
+        .service-icon-box {
+            width: 38px;
+            height: 38px;
+            flex-shrink: 0;
+            border: 1px solid #111;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: transparent;
+        }
+        .service-icon-box svg {
+            width: 18px;
+            height: 18px;
+            stroke: #111;
+        }
+        .service-info h5 {
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-primary);
+            margin-bottom: 2px;
+        }
+        .service-info p {
+            font-size: 10px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        /* ========================================================
+           SECTION 2: RESUME / EXPERIENCE
+           ======================================================== */
+        .resume-group-title {
+            font-family: var(--font-display);
+            font-size: 14px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-primary);
+            margin: 16px 0 12px;
+            border-bottom: 1px solid rgba(17,17,17,0.2);
+            padding-bottom: 4px;
+        }
+        .resume-grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        .resume-card {
+            background: #E5E5E5;
+            padding: 16px;
+            border: 1px solid #CACACA;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
+        .period-badge {
+            display: inline-block;
+            align-self: flex-start;
+            background: var(--bg-accent-amber);
+            color: var(--text-primary);
+            font-size: 9px;
+            font-weight: 700;
+            padding: 2px 8px;
+            letter-spacing: 0.05em;
+            margin-bottom: 8px;
+        }
+        .resume-role {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+            line-height: 1.3;
+        }
+        .resume-org {
+            font-size: 10px;
+            font-weight: 600;
+            color: #444;
+            margin-bottom: 6px;
+        }
+        .resume-desc {
+            font-size: 10px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        /* ========================================================
+           SECTION 3: PORTFOLIO
+           ======================================================== */
+        .portfolio-filters {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            margin-bottom: 20px;
+        }
+        .filter-btn {
+            background: transparent;
+            border: none;
+            font-family: var(--font-body);
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            cursor: pointer;
+            padding-bottom: 3px;
+        }
+        .filter-btn.active, .filter-btn:hover {
+            color: var(--text-primary);
+            border-bottom: 2px solid var(--bg-accent-amber);
+        }
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+        .project-card {
+            background: #fff;
+            border: 1px solid #CCC;
+            display: flex;
+            flex-direction: column;
+        }
+        .project-thumb {
+            width: 100%;
+            height: 140px;
+            background: #222;
+            overflow: hidden;
+        }
+        .project-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        .project-body {
+            padding: 14px;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+        }
+        .project-cat {
+            font-size: 9px;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            color: #c9880e;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+        .project-title {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 6px;
+            line-height: 1.3;
+        }
+        .project-desc {
+            font-size: 10px;
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+            flex: 1;
+        }
+        .project-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid #eee;
+            padding-top: 8px;
+        }
+        .tag-pill {
+            font-size: 8px;
+            font-weight: 600;
+            background: #EFEFEF;
+            padding: 2px 6px;
+            color: #444;
+            margin-right: 4px;
+        }
+        .project-link {
+            font-size: 9px;
+            font-weight: 700;
+            color: var(--text-primary);
+            text-transform: uppercase;
+        }
+        .project-link:hover {
+            color: #c9880e;
+        }
+
+        /* ========================================================
+           SECTION 4: CONTACT
+           ======================================================== */
+        .contact-content {
+            margin: 20px 0 32px;
+        }
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        .contact-item-box {
+            background: #E5E5E5;
+            border: 1px solid #CCC;
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        .contact-icon-box {
+            width: 42px;
+            height: 42px;
+            border: 1.25px solid #222;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            background: transparent;
+        }
+        .contact-icon-box img {
+            width: 20px;
+            height: 20px;
+            object-fit: contain;
+            filter: grayscale(100%);
+        }
+        .contact-details h6 {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-primary);
+            margin-bottom: 2px;
+        }
+        .contact-details a, .contact-details span {
+            font-size: 11px;
+            color: var(--text-secondary);
+            word-break: break-all;
+        }
+        .contact-details a:hover {
+            color: #000;
+            text-decoration: underline;
+        }
+        .sign-off-banner {
+            text-align: center;
+            padding: 20px 0;
+            border-top: 1px dashed #9E9E9E;
+            margin-top: 20px;
+        }
+        .sign-off-text {
+            font-family: var(--font-display);
+            font-size: 13px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--text-primary);
+        }
+
+        /* ========================================================
+           RESPONSIVE MOBILE BREAKPOINTS
+           ======================================================== */
+        @media (max-width: 860px) {
+            .app-shell {
+                grid-template-columns: 1fr;
+            }
+            .sidebar {
+                border-right: none;
+                border-bottom: 2px solid #111;
+            }
+            .avatar-box {
+                display: none;
+            }
+            .side-nav {
+                flex-direction: row;
+                flex-wrap: wrap;
+                padding: 10px;
+                gap: 4px;
+            }
+            .nav-divider {
+                display: none;
+            }
+            .nav-item {
+                padding: 6px 10px;
+                font-size: 10px;
+            }
+            .main-canvas {
+                padding: 24px 16px 60px;
+            }
+            .hero-view-container {
+                grid-template-columns: 1fr;
+            }
+            .hero-right {
+                height: 340px;
+            }
+            .hero-left {
+                padding: 32px 20px;
+            }
+            .hero-title {
+                font-size: 34px;
+            }
+            .about-grid-content {
+                grid-template-columns: 1fr;
+            }
+            .resume-grid-3 {
+                grid-template-columns: 1fr;
+            }
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+            }
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+            .quick-dock {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Demo Section Switcher (Interactive Mockup Control) -->
+    <div class="preview-bar">
+        <div>
+            <span class="badge">SPEC MOCKUP</span>
+            <span style="margin-left: 8px;">Design System: <strong>Editorial Monochrome & Amber</strong></span>
+        </div>
+        <div class="preview-nav">
+            <button onclick="switchView('hero')" id="btn-hero" class="active">Hero View</button>
+            <button onclick="switchView('about')" id="btn-about">About Me</button>
+            <button onclick="switchView('resume')" id="btn-resume">Resume</button>
+            <button onclick="switchView('portfolio')" id="btn-portfolio">Portfolio</button>
+            <button onclick="switchView('contact')" id="btn-contact">Contact</button>
+        </div>
+    </div>
+
+    <!-- Floating Right Quick-Jump Dock (Capsule Control) -->
+    <div class="quick-dock">
+        <a href="javascript:void(0)" onclick="switchView('hero')" title="Home">
+            <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+        </a>
+        <a href="javascript:void(0)" onclick="switchView('about')" title="About">
+            <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+        </a>
+        <a href="javascript:void(0)" onclick="switchView('resume')" title="Resume">
+            <svg viewBox="0 0 24 24"><path d="M20 6h-4V4c0-1.11-.89-2-2-2h-4c-1.11 0-2 .89-2 2v2H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-6 0h-4V4h4v2z"/></svg>
+        </a>
+        <a href="javascript:void(0)" onclick="switchView('portfolio')" title="Portfolio">
+            <svg viewBox="0 0 24 24"><path d="M4 11h5V5H4v6zm0 7h5v-6H4v6zm6 0h5v-6h-5v6zm6 0h5v-6h-5v6zm-6-7h5V5h-5v6zm6-6v6h5V5h-5z"/></svg>
+        </a>
+        <a href="javascript:void(0)" onclick="switchView('contact')" title="Contact">
+            <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+        </a>
+    </div>
+
+    <!-- ========================================================
+         VIEW 1: HERO VIEW (50/50 ASYMMETRIC SPLIT SCREEN)
+         ======================================================== -->
+    <div id="view-hero" class="view-section active">
+        <div class="hero-view-container">
+            <div class="hero-left">
+                <div class="hero-greeting">HI THERE!</div>
+                <h1 class="hero-title">
+                    I'M <span class="name-outline">RIZA ADITYA</span>
+                </h1>
+                <div class="role-strip">Web Developer &amp; System Analyst</div>
+                <p class="hero-desc">
+                    Mahasiswa D3 Sistem Informasi di Politeknik Negeri Subang dengan fokus pada analisis kebutuhan sistem dan pengembangan aplikasi web. Berpengalaman memimpin tim kerja sebagai Project Manager dan aktif dalam dokumentasi multimedia organisasi.
+                </p>
+                <div>
+                    <button class="btn-capsule" onclick="switchView('about')">MORE ABOUT ME ↗</button>
+                </div>
+            </div>
+            <div class="hero-right">
+                <img src="img/rz2.jpg" alt="Riza Aditya Portrait">
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================================
+         INNER VIEWS (LAYOUT GRID: SIDEBAR + CANVAS)
+         ======================================================== -->
+    <div id="view-inner" class="view-section">
+        <div class="app-shell">
+            <!-- Left Sidebar -->
+            <aside class="sidebar">
+                <div class="avatar-box">
+                    <img src="img/rz1.jpg" alt="Riza Aditya Avatar">
+                </div>
+                <nav class="side-nav">
+                    <span class="nav-item" onclick="switchView('hero')">HOME</span>
+                    <div class="nav-divider"></div>
+                    <span class="nav-item" id="side-about" onclick="switchInner('about')">ABOUT ME</span>
+                    <div class="nav-divider"></div>
+                    <span class="nav-item" id="side-resume" onclick="switchInner('resume')">RESUME</span>
+                    <div class="nav-divider"></div>
+                    <span class="nav-item" id="side-portfolio" onclick="switchInner('portfolio')">PORTFOLIO</span>
+                    <div class="nav-divider"></div>
+                    <span class="nav-item" id="side-contact" onclick="switchInner('contact')">CONTACT</span>
+                </nav>
+            </aside>
+
+            <!-- Main Canvas -->
+            <main class="main-canvas">
+
+                <!-- 1. ABOUT ME -->
+                <div id="inner-about" class="inner-subview">
+                    <div class="section-header-banner">
+                        <h2 class="section-title">ABOUT ME</h2>
+                    </div>
+                    <p class="lead-statement">
+                        <span class="light">I'm </span><span class="bold">Riza Aditya Pirmansyah</span><span class="light">, Web Developer &amp; System Analyst</span>
+                    </p>
+                    <p style="font-size: 11px; color: var(--text-secondary); margin-bottom: 24px; line-height: 1.6;">
+                        Mahasiswa D3 Sistem Informasi di Politeknik Negeri Subang dengan fokus pada analisis kebutuhan sistem dan pengembangan aplikasi web. Berpengalaman memimpin tim kerja sebagai Project Manager dan aktif dalam dokumentasi multimedia organisasi.
+                    </p>
+
+                    <div class="about-grid-content">
+                        <!-- 2x2 Dark Stat Matrix -->
+                        <div class="stat-matrix-2x2">
+                            <div class="stat-cell">
+                                <div class="stat-number">3</div>
+                                <div class="stat-label">Pengalaman</div>
+                            </div>
+                            <div class="stat-cell">
+                                <div class="stat-number">5</div>
+                                <div class="stat-label">Proyek Selesai</div>
+                            </div>
+                            <div class="stat-cell">
+                                <div class="stat-number">5+</div>
+                                <div class="stat-label">Skill Dikuasai</div>
+                            </div>
+                            <div class="stat-cell">
+                                <div class="stat-number">1</div>
+                                <div class="stat-label">Tim Dipimpin (PM)</div>
+                            </div>
+                        </div>
+
+                        <!-- What I Do! -->
+                        <div class="services-col">
+                            <h4>What I Do!</h4>
+                            <div class="service-row">
+                                <div class="service-icon-box">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M16 18l6-6-6-6M8 6l-6 6 6 6"/></svg>
+                                </div>
+                                <div class="service-info">
+                                    <h5>Web Application Development</h5>
+                                    <p>Membangun sistem web terstruktur dan integrasi database relasional.</p>
+                                </div>
+                            </div>
+                            <div class="service-row">
+                                <div class="service-icon-box">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+                                </div>
+                                <div class="service-info">
+                                    <h5>System Analysis &amp; Design</h5>
+                                    <p>Analisis kebutuhan sistem, pemodelan proses bisnis (UML, Use Case, Flowchart), dan perancangan ERD.</p>
+                                </div>
+                            </div>
+                            <div class="service-row">
+                                <div class="service-icon-box">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="0" ry="0"/></svg>
+                                </div>
+                                <div class="service-info">
+                                    <h5>Videografi &amp; Editing</h5>
+                                    <p>Produksi video dokumentasi kegiatan formal, shooting lapangan, dan editing pascaproduksi.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2. RESUME -->
+                <div id="inner-resume" class="inner-subview" style="display: none;">
+                    <div class="section-header-banner">
+                        <h2 class="section-title">RESUME</h2>
+                    </div>
+                    
+                    <h3 class="resume-group-title">Pengalaman Organisasi &amp; Proyek</h3>
+                    <div class="resume-grid-3">
+                        <div class="resume-card">
+                            <span class="period-badge">2026</span>
+                            <div class="resume-role">Project Manager Project 1</div>
+                            <div class="resume-org">Tim 5 Orang</div>
+                            <p class="resume-desc">Memimpin tim 5 orang, menyusun rencana pengembangan sistem serta pembagian tugas kerja anggota.</p>
+                        </div>
+                        <div class="resume-card">
+                            <span class="period-badge">2026</span>
+                            <div class="resume-role">Anggota Divisi PDD</div>
+                            <div class="resume-org">PKKMB Jurusan &amp; Mabim</div>
+                            <p class="resume-desc">Mendesain materi publikasi visual acara serta bertanggung jawab atas dokumentasi foto dan video kegiatan.</p>
+                        </div>
+                        <div class="resume-card">
+                            <span class="period-badge">2026</span>
+                            <div class="resume-role">Ketua Divisi Korlap</div>
+                            <div class="resume-org">Diesnatalis Himatikom</div>
+                            <p class="resume-desc">Memimpin koordinasi lapangan acara dan memastikan ketertiban serta kelancaran alur kegiatan dari awal sampai akhir.</p>
+                        </div>
+                    </div>
+
+                    <h3 class="resume-group-title">Pendidikan</h3>
+                    <div class="resume-grid-3">
+                        <div class="resume-card">
+                            <span class="period-badge">2025 - Sekarang</span>
+                            <div class="resume-role">D3 Sistem Informasi</div>
+                            <div class="resume-org">Politeknik Negeri Subang</div>
+                            <p class="resume-desc">Fokus pada analisis sistem, pemodelan masalah proses bisnis, dan pengembangan aplikasi web.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. PORTFOLIO -->
+                <div id="inner-portfolio" class="inner-subview" style="display: none;">
+                    <div class="section-header-banner">
+                        <h2 class="section-title">PORTFOLIO</h2>
+                    </div>
+
+                    <div class="portfolio-filters">
+                        <button class="filter-btn active" onclick="filterProjects('all', this)">ALL</button>
+                        <button class="filter-btn" onclick="filterProjects('mobile', this)">MOBILE APPS</button>
+                        <button class="filter-btn" onclick="filterProjects('academic', this)">ACADEMIC</button>
+                        <button class="filter-btn" onclick="filterProjects('system', this)">SYSTEM DESIGN</button>
+                        <button class="filter-btn" onclick="filterProjects('video', this)">VIDEOGRAFI</button>
+                    </div>
+
+                    <div class="portfolio-grid">
+                        <!-- Project 1: MySchedule -->
+                        <div class="project-card" data-category="mobile">
+                            <div class="project-thumb" style="background: #F7F1E5;">
+                                <img src="img/myschedule.png" alt="MySchedule App Icon" style="object-fit: contain; padding: 12px;">
+                            </div>
+                            <div class="project-body">
+                                <div class="project-cat">Mobile App</div>
+                                <div class="project-title">MySchedule — Offline Agenda &amp; Widget</div>
+                                <p class="project-desc">Aplikasi manajemen agenda luring dengan widget Android interaktif, alarm pengingat, dan kategori kustom.</p>
+                                <div class="project-footer">
+                                    <div>
+                                        <span class="tag-pill">React Native</span>
+                                        <span class="tag-pill">TypeScript</span>
+                                        <span class="tag-pill">SQLite</span>
+                                    </div>
+                                    <a class="project-link" href="https://github.com/Riza2803/MySchedule-app" target="_blank">GitHub ↗</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Project 2: MyWallet -->
+                        <div class="project-card" data-category="mobile">
+                            <div class="project-thumb" style="background: #000000;">
+                                <img src="img/mywallet.png" alt="MyWallet App Icon" style="object-fit: contain; padding: 12px;">
+                            </div>
+                            <div class="project-body">
+                                <div class="project-cat">Mobile App</div>
+                                <div class="project-title">MyWallet — Personal Expense Tracker</div>
+                                <p class="project-desc">Aplikasi pelacak keuangan pribadi offline-first dengan rekap multi-periode, pengingat tagihan, dan multi-akun.</p>
+                                <div class="project-footer">
+                                    <div>
+                                        <span class="tag-pill">React Native</span>
+                                        <span class="tag-pill">TypeScript</span>
+                                        <span class="tag-pill">SQLite</span>
+                                    </div>
+                                    <a class="project-link" href="https://github.com/Riza2803/MyWallet-app" target="_blank">GitHub ↗</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Project 3: Presensi Desa Cikadu -->
+                        <div class="project-card" data-category="academic">
+                            <div class="project-thumb">
+                                <img src="img/vb.png" alt="Sistem Presensi Desa Cikadu">
+                            </div>
+                            <div class="project-body">
+                                <div class="project-cat">Academic Project</div>
+                                <div class="project-title">Sistem Presensi Desa Cikadu</div>
+                                <p class="project-desc">Aplikasi desktop presensi berbasis Visual Basic untuk mendukung digitalisasi administrasi desa.</p>
+                                <div class="project-footer">
+                                    <div>
+                                        <span class="tag-pill">VB</span>
+                                        <span class="tag-pill">Desktop</span>
+                                    </div>
+                                    <a class="project-link" href="https://youtu.be/FnfyQx19PkU" target="_blank">Lihat ↗</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Project 4: Ayam Geprek Si Akang -->
+                        <div class="project-card" data-category="system">
+                            <div class="project-thumb">
+                                <img src="img/figma.png" alt="Ayam Geprek Si Akang">
+                            </div>
+                            <div class="project-body">
+                                <div class="project-cat">System Design</div>
+                                <div class="project-title">Analisis &amp; Prototipe Sistem Pemesanan Ayam Geprek Si Akang</div>
+                                <p class="project-desc">Perancangan alur proses bisnis dan prototipe interaktif pemesanan makanan 5 modul: Beranda, Menu, Pesan, Lacak, dan Riwayat Transaksi.</p>
+                                <div class="project-footer">
+                                    <div>
+                                        <span class="tag-pill">Sistem Analis</span>
+                                        <span class="tag-pill">Figma</span>
+                                    </div>
+                                    <a class="project-link" href="https://www.figma.com/design/itR9ui0W2mWNyOwi54bALa/SiAkang" target="_blank">Figma ↗</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Project 5: Dokumentasi Acara -->
+                        <div class="project-card" data-category="video">
+                            <div class="project-thumb">
+                                <img src="img/video.png" alt="Dokumentasi Acara">
+                            </div>
+                            <div class="project-body">
+                                <div class="project-cat">Videografi</div>
+                                <div class="project-title">Dokumentasi Acara Jurusan</div>
+                                <p class="project-desc">Liputan videografi dan editing dokumentasi kegiatan akademik dan kemahasiswaan kampus.</p>
+                                <div class="project-footer">
+                                    <div>
+                                        <span class="tag-pill">Video</span>
+                                        <span class="tag-pill">Editing</span>
+                                    </div>
+                                    <a class="project-link" href="https://drive.google.com/drive/folders/154JxdktHQcBG5Cu5H4olhL7_pDGzd8xx" target="_blank">Drive ↗</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 4. CONTACT -->
+                <div id="inner-contact" class="inner-subview" style="display: none;">
+                    <div class="section-header-banner">
+                        <h2 class="section-title">CONTACT</h2>
+                    </div>
+
+                    <p class="lead-statement">
+                        <span class="light">Feel </span><span class="bold">free</span><span class="light"> to get in touch for collaborations.</span>
+                    </p>
+
+                    <div class="contact-content">
+                        <div class="contact-grid">
+                            <div class="contact-item-box">
+                                <div class="contact-icon-box">
+                                    <img src="img/icon/email.png" alt="Email">
+                                </div>
+                                <div class="contact-details">
+                                    <h6>Email Address</h6>
+                                    <a href="mailto:rizaadityafirmansyah2@gmail.com">rizaadityafirmansyah2@gmail.com</a>
+                                </div>
+                            </div>
+
+                            <div class="contact-item-box">
+                                <div class="contact-icon-box">
+                                    <img src="img/icon/whatsapp.png" alt="WhatsApp">
+                                </div>
+                                <div class="contact-details">
+                                    <h6>WhatsApp</h6>
+                                    <a href="https://wa.me/6285601546289" target="_blank">+62 856-0154-6289</a>
+                                </div>
+                            </div>
+
+                            <div class="contact-item-box">
+                                <div class="contact-icon-box">
+                                    <img src="img/icon/github.png" alt="GitHub">
+                                </div>
+                                <div class="contact-details">
+                                    <h6>GitHub Profile</h6>
+                                    <a href="https://github.com/Riza2803" target="_blank">github.com/Riza2803</a>
+                                </div>
+                            </div>
+
+                            <div class="contact-item-box">
+                                <div class="contact-icon-box">
+                                    <img src="img/icon/linkedin.png" alt="LinkedIn">
+                                </div>
+                                <div class="contact-details">
+                                    <h6>LinkedIn Profile</h6>
+                                    <a href="https://www.linkedin.com/in/riza-aditya-pirmansyah-63a82437b/" target="_blank">Riza Aditya Pirmansyah</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Footer Sign-Off Banner -->
+                        <div class="sign-off-banner">
+                            <span class="sign-off-text">THANKS FOR PATIENCE!</span>
+                        </div>
+                    </div>
+                </div>
+
+            </main>
+        </div>
+    </div>
+
+    <!-- Interactive Navigation Script -->
+    <script>
+        function switchView(viewName) {
+            // Update top preview nav buttons
+            document.querySelectorAll('.preview-nav button').forEach(b => b.classList.remove('active'));
+            const activeBtn = document.getElementById('btn-' + viewName);
+            if (activeBtn) activeBtn.classList.add('active');
+
+            if (viewName === 'hero') {
+                document.getElementById('view-hero').classList.add('active');
+                document.getElementById('view-inner').classList.remove('active');
+            } else {
+                document.getElementById('view-hero').classList.remove('active');
+                document.getElementById('view-inner').classList.add('active');
+                switchInner(viewName);
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function switchInner(section) {
+            // Hide all subviews
+            document.querySelectorAll('.inner-subview').forEach(el => el.style.display = 'none');
+            // Show requested
+            const target = document.getElementById('inner-' + section);
+            if (target) target.style.display = 'block';
+
+            // Update sidebar nav state
+            document.querySelectorAll('.side-nav .nav-item').forEach(el => el.classList.remove('active'));
+            const sideActive = document.getElementById('side-' + section);
+            if (sideActive) sideActive.classList.add('active');
+
+            // Update top bar buttons
+            document.querySelectorAll('.preview-nav button').forEach(b => b.classList.remove('active'));
+            const activeBtn = document.getElementById('btn-' + section);
+            if (activeBtn) activeBtn.classList.add('active');
+        }
+
+        function filterProjects(cat, btn) {
+            document.querySelectorAll('.portfolio-filters .filter-btn').forEach(b => b.classList.remove('active'));
+            if (btn) btn.classList.add('active');
+
+            const cards = document.querySelectorAll('.portfolio-grid .project-card');
+            cards.forEach(card => {
+                if (cat === 'all' || card.getAttribute('data-category') === cat) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html>

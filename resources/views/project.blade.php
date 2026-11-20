@@ -1,34 +1,70 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Project - {{ $p['pendek'] }}</title>
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-</head>
-<body>
-     <header>
-        <nav><a href="{{ url('/') }}">Home</a> 
-        <a href="{{ url('/about') }}">About</a> 
-        <a href="{{ url('/experience') }}">Experience</a> 
-        <a href="{{ url('/project') }}">Projects</a> 
-        <a href="{{ url('/contact') }}">Contact</a></nav>
-    </header>
-    <main class="proj">
-        <h2>Proyek Yang di kerjakan</h2>
+@extends('layouts.app')
 
-        <div class="grid">
-            @foreach($p['proyek'] as $pr)
-            <div class="kartu">
-                <div class="thumb"><img src="{{ asset($pr['gambar']) }}" alt="{{ $pr['judul'] }}"></div>
-                <div class="kategori">{{ $pr['kategori'] }}</div>
-                <b>{{ $pr['judul'] }}</b>
-                <p>{{ $pr['deskripsi'] }}</p>
-                <div>@foreach($pr['tags'] as $t)<span class="tag">{{ $t }}</span>@endforeach</div>
-                <p><a href="{{ $pr['url'] }}">{{ $pr['label'] }}</a></p>
-            </div>
-            @endforeach
+@section('title', 'Portfolio — ' . $p['pendek'])
+
+@section('content')
+<div class="section-header-banner">
+    <h2 class="section-title">PORTFOLIO</h2>
+</div>
+
+<div class="portfolio-filters">
+    <button class="filter-btn active" onclick="filterProjects('all', this)">ALL</button>
+    <button class="filter-btn" onclick="filterProjects('mobile', this)">MOBILE APPS</button>
+    <button class="filter-btn" onclick="filterProjects('academic', this)">ACADEMIC</button>
+    <button class="filter-btn" onclick="filterProjects('system', this)">SYSTEM DESIGN</button>
+    <button class="filter-btn" onclick="filterProjects('video', this)">VIDEOGRAFI</button>
+</div>
+
+<div class="portfolio-grid">
+    @foreach($p['proyek'] as $pr)
+    @php
+        $catSlug = match(strtoupper($pr['kategori'])) {
+            'MOBILE APP' => 'mobile',
+            'ACADEMIC PROJECT' => 'academic',
+            'SYSTEM DESIGN' => 'system',
+            'VIDEOGRAFI' => 'video',
+            default => 'other'
+        };
+        $isMobile = $catSlug === 'mobile';
+        $bgThumb = str_contains($pr['gambar'], 'myschedule') ? '#F7F1E5' : ($isMobile ? '#000000' : '#222222');
+    @endphp
+    <div class="project-card" data-category="{{ $catSlug }}">
+        <div class="project-thumb" style="background: {{ $bgThumb }};">
+            <img src="{{ asset($pr['gambar']) }}" alt="{{ $pr['judul'] }}"
+                 @if($isMobile) style="object-fit: contain; padding: 12px;" @endif>
         </div>
-    </main>
-</body>
-</html>
+        <div class="project-body">
+            <div class="project-cat">{{ $pr['kategori'] }}</div>
+            <div class="project-title">{{ $pr['judul'] }}</div>
+            <p class="project-desc">{{ $pr['deskripsi'] }}</p>
+            <div class="project-footer">
+                <div>
+                    @foreach($pr['tags'] as $t)
+                    <span class="tag-pill">{{ $t }}</span>
+                    @endforeach
+                </div>
+                <a class="project-link" href="{{ $pr['url'] }}" target="_blank">{{ $pr['label'] }}</a>
+            </div>
+        </div>
+    </div>
+    @endforeach
+</div>
+@endsection
+
+@push('scripts')
+<script>
+    function filterProjects(cat, btn) {
+        document.querySelectorAll('.portfolio-filters .filter-btn').forEach(b => b.classList.remove('active'));
+        if (btn) btn.classList.add('active');
+
+        const cards = document.querySelectorAll('.portfolio-grid .project-card');
+        cards.forEach(card => {
+            if (cat === 'all' || card.getAttribute('data-category') === cat) {
+                card.style.display = 'flex';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    }
+</script>
+@endpush
