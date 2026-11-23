@@ -182,7 +182,10 @@
                 }
             }
 
-            if (push) history.pushState({ url }, '', url);
+            if (push) {
+                const cleanDisplayUrl = url.replace(/\.html(\?|#|$)/, '$1');
+                history.pushState({ url: cleanDisplayUrl }, '', cleanDisplayUrl);
+            }
             window.scrollTo({ top: 0, behavior: 'instant' });
 
         } catch (err) {
