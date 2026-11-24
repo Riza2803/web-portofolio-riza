@@ -32,7 +32,22 @@ body {
     color: var(--text-primary);
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
-    overflow-x: hidden;
+    overflow-x: clip;
+}
+
+/* Lenis Smooth Scroll Base */
+html.lenis,
+html.lenis body {
+    height: auto;
+}
+.lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+    overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+    overflow: clip;
 }
 
 a {
@@ -693,35 +708,10 @@ a {
 
 
 /* ========================================================
-   INTERACTIVE & TRANSITION ENHANCEMENTS (JS-POWERED)
+   INTERACTIVE & TRANSITION ENHANCEMENTS (GSAP + MOTION + LENIS)
    ======================================================== */
 
-/* Native View Transitions API (Modern Chromium & Safari 18+) */
-::view-transition-old(root),
-::view-transition-new(root) {
-    animation-duration: 0.2s;
-    animation-timing-function: cubic-bezier(0.2, 0, 0, 1);
-}
-
-::view-transition-old(root) {
-    animation-name: pageFadeOut;
-}
-
-::view-transition-new(root) {
-    animation-name: pageFadeIn;
-}
-
-@keyframes pageFadeOut {
-    from { opacity: 1; transform: translateY(0); }
-    to { opacity: 0; transform: translateY(4px); }
-}
-
-@keyframes pageFadeIn {
-    from { opacity: 0; transform: translateY(-4px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-/* Fallback Transitions for browsers without View Transitions */
+/* Fallback Transitions when GSAP is unavailable */
 .page-transitioning-out {
     opacity: 0 !important;
     transform: translateY(6px) !important;
@@ -733,65 +723,54 @@ a {
     transform: translateY(-6px) !important;
 }
 
-.canvas-container {
-    transition: opacity 0.18s cubic-bezier(0.2, 0, 0, 1), transform 0.18s cubic-bezier(0.2, 0, 0, 1);
-    will-change: opacity, transform;
+/* Card & Surface Interactions (Flat Editorial Contrast; Motion handles spring transform) */
+.portfolio-grid {
+    position: relative;
 }
 
-/* Card Hover Micro-Interactions */
 .project-card {
-    transition: transform 0.22s cubic-bezier(0.2, 0, 0, 1), box-shadow 0.22s cubic-bezier(0.2, 0, 0, 1), opacity 0.2s ease;
-    will-change: transform, opacity;
+    transition: border-color 0.2s ease;
     cursor: pointer;
 }
 .project-card:hover {
-    transform: translateY(-4px) !important;
-    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12) !important;
+    border-color: #111111;
+}
+html:not(.motion-ready) .project-card {
+    transition: transform 0.2s cubic-bezier(0.2, 0, 0, 1), border-color 0.2s ease;
+}
+html:not(.motion-ready) .project-card:hover {
+    transform: translateY(-4px);
 }
 
-/* Filter Animations (Class-based, no inline style conflict) */
 .project-card.is-filtered-out {
-    opacity: 0;
-    pointer-events: none;
-    display: none !important;
-}
-
-.project-card.is-filtering-out {
-    opacity: 0;
-    transform: scale(0.96);
-    pointer-events: none;
-}
-
-.project-card.is-filtering-in {
-    animation: cardReveal 0.24s cubic-bezier(0.2, 0, 0, 1) forwards;
-}
-
-@keyframes cardReveal {
-    from {
-        opacity: 0;
-        transform: scale(0.96) translateY(4px);
-    }
-    to {
-        opacity: 1;
-        transform: scale(1) translateY(0);
-    }
+    display: none;
 }
 
 .resume-card {
-    transition: transform 0.2s ease, border-color 0.2s ease;
+    transition: border-color 0.2s ease;
 }
 .resume-card:hover {
-    transform: translateY(-2px);
     border-color: #888;
+}
+html:not(.motion-ready) .resume-card {
+    transition: transform 0.2s ease, border-color 0.2s ease;
+}
+html:not(.motion-ready) .resume-card:hover {
+    transform: translateY(-2px);
 }
 
 .contact-item-box {
-    transition: transform 0.2s ease, border-color 0.2s ease, background 0.15s ease;
+    transition: border-color 0.2s ease, background 0.15s ease;
 }
 .contact-item-box:hover {
-    transform: translateY(-2px);
     border-color: #666;
     background: #DDDDDD;
+}
+html:not(.motion-ready) .contact-item-box {
+    transition: transform 0.2s ease, border-color 0.2s ease, background 0.15s ease;
+}
+html:not(.motion-ready) .contact-item-box:hover {
+    transform: translateY(-2px);
 }
 
 /* Project Detail Modal */
@@ -825,6 +804,8 @@ a {
     z-index: 10;
     display: flex;
     flex-direction: column;
+}
+html:not(.motion-ready) .modal-content {
     animation: modalPop 0.22s cubic-bezier(0.2, 0, 0, 1);
 }
 @keyframes modalPop {
@@ -943,11 +924,12 @@ a {
     gap: 8px;
     z-index: 1100;
     border-left: 3px solid var(--bg-accent-amber);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
     transform: translateY(80px);
     opacity: 0;
-    transition: transform 0.24s cubic-bezier(0.2, 0, 0, 1), opacity 0.24s ease;
     pointer-events: none;
+}
+html:not(.motion-ready) .app-toast {
+    transition: transform 0.24s cubic-bezier(0.2, 0, 0, 1), opacity 0.24s ease;
 }
 .app-toast.is-visible {
     transform: translateY(0);
@@ -961,10 +943,24 @@ a {
 
 /* Quick Dock active state */
 .quick-dock a {
-    transition: transform 0.18s cubic-bezier(0.2, 0, 0, 1), background 0.18s ease, color 0.18s ease;
+    width: 24px;
+    height: 24px;
+    border-radius: 50% !important;
+    transition: background 0.18s ease, color 0.18s ease;
+}
+html:not(.motion-ready) .quick-dock a:hover {
+    transform: scale(1.18);
 }
 .quick-dock a.active {
     background: #111111;
     color: var(--bg-accent-amber);
-    border-radius: 50% !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
 }

@@ -18,7 +18,7 @@
         </div>
     </div>
     <div class="hero-right">
-        <img src="{{ asset($p['foto']) }}" alt="Foto {{ $p['nama'] }}">
+        <img src="{{ asset($p['foto']) }}" alt="Foto {{ $p['nama'] }}" fetchpriority="high">
     </div>
 </div>
 @endsection

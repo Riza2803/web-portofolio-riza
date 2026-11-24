@@ -64,6 +64,11 @@
     @endif
 
     @stack('scripts')
-    <script src="{{ asset('js/app.js') }}"></script>
+    <script defer src="{{ asset('js/vendor/gsap.min.js') }}"></script>
+    <script defer src="{{ asset('js/vendor/ScrollTrigger.min.js') }}"></script>
+    <script defer src="{{ asset('js/vendor/Flip.min.js') }}"></script>
+    <script defer src="{{ asset('js/vendor/motion.min.js') }}"></script>
+    <script defer src="{{ asset('js/vendor/lenis.min.js') }}"></script>
+    <script defer src="{{ asset('js/app.js') }}"></script>
 </body>
 </html>

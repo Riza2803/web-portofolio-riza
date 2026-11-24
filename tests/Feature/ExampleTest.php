@@ -12,8 +12,21 @@ class ExampleTest extends TestCase
      */
     public function test_the_application_returns_a_successful_response(): void
     {
-        $response = $this->get('/');
+        foreach (['/', '/about', '/experience', '/project', '/contact'] as $route) {
+            $response = $this->get($route);
+            $response->assertStatus(200);
+            $response->assertSeeInOrder([
+                'js/vendor/gsap.min.js',
+                'js/vendor/ScrollTrigger.min.js',
+                'js/vendor/Flip.min.js',
+                'js/vendor/motion.min.js',
+                'js/vendor/lenis.min.js',
+                'js/app.js',
+            ], false);
+        }
 
-        $response->assertStatus(200);
+        foreach (['gsap.min.js', 'ScrollTrigger.min.js', 'Flip.min.js', 'motion.min.js', 'lenis.min.js'] as $bundle) {
+            $this->assertFileExists(public_path("js/vendor/{$bundle}"));
+        }
     }
 }
