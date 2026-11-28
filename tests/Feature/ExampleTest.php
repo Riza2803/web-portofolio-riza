@@ -28,5 +28,15 @@ class ExampleTest extends TestCase
         foreach (['gsap.min.js', 'ScrollTrigger.min.js', 'Flip.min.js', 'motion.min.js', 'lenis.min.js'] as $bundle) {
             $this->assertFileExists(public_path("js/vendor/{$bundle}"));
         }
+
+        $this->assertFileExists(public_path('img/mywork.png'));
+
+        $projectPage = $this->get('/project');
+        $projectPage->assertSee('MyWork: Task & Schedule Manager');
+        $projectPage->assertSee('https://github.com/Riza2803/MyWork-app', false);
+        $projectPage->assertSee('img/mywork.png', false);
+
+        $aboutPage = $this->get('/about');
+        $aboutPage->assertSeeInOrder(['6', 'Proyek Selesai']);
     }
 }

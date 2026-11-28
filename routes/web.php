@@ -13,7 +13,7 @@ $profile = [
     'foto_about' => 'img/rz1.jpg',
     'stats' => [
         ['angka' => '3', 'label' => 'Pengalaman'],
-        ['angka' => '5', 'label' => 'Proyek Selesai'],
+        ['angka' => '6', 'label' => 'Proyek Selesai'],
         ['angka' => '5+', 'label' => 'Skill'],
         ['angka' => '1', 'label' => 'Tim Dipimpin (PM)'],
     ],
@@ -32,6 +32,7 @@ $profile = [
     ],
     // Daftar proyek
     'proyek' => [
+        ['gambar' => 'img/mywork.png', 'kategori' => 'MOBILE APP', 'judul' => 'MyWork: Task & Schedule Manager', 'deskripsi' => 'Aplikasi manajemen tugas dan jadwal luring dengan analitik beban kerja mingguan, pengingat interaktif, dan widget Android.', 'tags' => ['React Native', 'JavaScript', 'SQLite', 'Expo'], 'url' => 'https://github.com/Riza2803/MyWork-app', 'label' => 'GitHub ↗'],
         ['gambar' => 'img/myschedule.png', 'kategori' => 'MOBILE APP', 'judul' => 'MySchedule — Offline Agenda & Widget', 'deskripsi' => 'Aplikasi manajemen agenda luring dengan widget Android interaktif, alarm pengingat, dan kategori kustom.', 'tags' => ['React Native', 'TypeScript', 'SQLite', 'Expo'], 'url' => 'https://github.com/Riza2803/MySchedule-app', 'label' => 'GitHub ↗'],
         ['gambar' => 'img/mywallet.png', 'kategori' => 'MOBILE APP', 'judul' => 'MyWallet — Expense Tracker', 'deskripsi' => 'Aplikasi pelacak keuangan pribadi offline-first dengan rekap multi-periode, pengingat tagihan, dan multi-akun.', 'tags' => ['React Native', 'TypeScript', 'SQLite', 'Expo'], 'url' => 'https://github.com/Riza2803/MyWallet-app', 'label' => 'GitHub ↗'],
         ['gambar' => 'img/vb.png', 'kategori' => 'ACADEMIC PROJECT', 'judul' => 'Sistem Presensi Desa Cikadu', 'deskripsi' => 'Sistem presensi berbasis Visual Basic untuk administrasi desa.', 'tags' => ['VB', 'Desktop'], 'url' => 'https://youtu.be/FnfyQx19PkU', 'label' => 'Lihat ↗'],

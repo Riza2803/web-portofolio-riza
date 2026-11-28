@@ -26,12 +26,14 @@
             default => 'other'
         };
         $isMobile = $catSlug === 'mobile';
-        $bgThumb = str_contains($pr['gambar'], 'myschedule') ? '#F7F1E5' : ($isMobile ? '#000000' : '#222222');
+        $bgThumb = str_contains($pr['gambar'], 'myschedule')
+            ? '#F7F1E5'
+            : (str_contains($pr['gambar'], 'mywork') ? '#282828' : ($isMobile ? '#000000' : '#222222'));
     @endphp
     <div class="project-card" data-category="{{ $catSlug }}">
         <div class="project-thumb" style="background: {{ $bgThumb }};">
             <img src="{{ asset($pr['gambar']) }}" alt="{{ $pr['judul'] }}"
-                 @if($isMobile) style="object-fit: contain; padding: 12px;" @endif>
+                 @if($isMobile) width="1024" height="1024" style="object-fit: contain; padding: 12px;" @endif>
         </div>
         <div class="project-body">
             <div class="project-cat">{{ $pr['kategori'] }}</div>
@@ -43,7 +45,7 @@
                     <span class="tag-pill">{{ $t }}</span>
                     @endforeach
                 </div>
-                <a class="project-link" href="{{ $pr['url'] }}" target="_blank">{{ $pr['label'] }}</a>
+                <a class="project-link" href="{{ $pr['url'] }}" target="_blank" rel="noopener noreferrer">{{ $pr['label'] }}</a>
             </div>
         </div>
     </div>
